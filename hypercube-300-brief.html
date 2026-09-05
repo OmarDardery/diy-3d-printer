@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HyperCube 300 — Build Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#F5F6F4; --card:#FFF; --ink:#15181A; --mut:#5F686A; --rule:#DCE0DD;
+  --rule2:#B7BFB9; --acc:#00595E; --accsoft:#DCEAE9; --warn:#8F4C08; --warnsoft:#F7E9D8;
+  --sans:"IBM Plex Sans Arabic",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1213; --card:#171B1C; --ink:#E6EAE8; --mut:#96A0A0; --rule:#272D2E;
+  --rule2:#3B4344; --acc:#55C2B8; --accsoft:#12302F; --warn:#DE9433; --warnsoft:#2E2415;
+}}
+:root[data-theme="dark"]{
+  --bg:#0F1213; --card:#171B1C; --ink:#E6EAE8; --mut:#96A0A0; --rule:#272D2E;
+  --rule2:#3B4344; --acc:#55C2B8; --accsoft:#12302F; --warn:#DE9433; --warnsoft:#2E2415;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:20px 18px 64px;display:flex;flex-direction:column;gap:26px}
+
+/* language switching */
+html[lang="en"] .ar{display:none}
+html[lang="ar"] .en{display:none}
+
+header{border:1.5px solid var(--rule2);background:var(--card);padding:20px}
+h1{margin:0;font-size:clamp(26px,5vw,38px);line-height:1.15;font-weight:700}
+.sub{color:var(--mut);margin:8px 0 0;font-size:15px}
+.langbar{display:flex;gap:8px;margin-bottom:14px}
+.langbar button{
+  font-family:var(--sans);font-size:14px;font-weight:600;padding:7px 16px;cursor:pointer;
+  border:1.5px solid var(--rule2);background:transparent;color:var(--mut);border-radius:0;
+}
+.langbar button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--card)}
+.langbar button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+h2{font-size:22px;font-weight:700;margin:0 0 4px;padding-bottom:6px;border-bottom:1.5px solid var(--ink)}
+h3{font-size:16px;font-weight:600;margin:16px 0 6px;color:var(--mut)}
+p{margin:0 0 10px;max-width:68ch}
+a{color:var(--acc)}
+section{display:flex;flex-direction:column;gap:10px}
+
+details{border:1px solid var(--rule);background:var(--card)}
+details+details{margin-top:-1px}
+summary{cursor:pointer;padding:12px 14px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);color:var(--acc);font-weight:600}
+details[open] summary::after{content:"–"}
+summary:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.body{padding:0 14px 14px}
+.tot{font-family:var(--mono);font-size:14px;color:var(--mut);font-weight:400}
+
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+th{text-align:start;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);padding:8px 10px;border-bottom:1.5px solid var(--rule2);white-space:nowrap}
+td{padding:7px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+.n{text-align:end;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sku{font-family:var(--mono);font-size:12.5px;color:var(--mut);white-space:nowrap}
+tfoot td{border-top:1.5px solid var(--rule2);font-weight:700;background:var(--accsoft)}
+
+ol.steps{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:9px}
+ol.steps>li::marker{font-family:var(--mono);color:var(--acc);font-weight:600}
+ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px}
+
+.grand{border:1.5px solid var(--rule2);background:var(--card);display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.g{padding:14px 16px;border-inline-end:1px solid var(--rule)}
+.g:last-child{border-inline-end:0;background:var(--accsoft)}
+.g .k{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);font-weight:600}
+.g .v{font-family:var(--mono);font-size:21px;font-weight:600;font-variant-numeric:tabular-nums}
+.g:last-child .v{color:var(--acc)}
+
+.note{border-inline-start:3px solid var(--warn);background:var(--warnsoft);padding:11px 14px;font-size:14.5px}
+.note b{color:var(--warn)}
+footer{border-top:1px solid var(--rule);padding-top:12px;color:var(--mut);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="langbar">
+    <button id="bEn" aria-pressed="true" onclick="setLang('en')">English</button>
+    <button id="bAr" aria-pressed="false" onclick="setLang('ar')">العربية</button>
+  </div>
+  <h1><span class="en">HyperCube 300 — Build Brief</span><span class="ar">هايبر كيوب ٣٠٠ — بريف التجميعة</span></h1>
+  <p class="sub">
+    <span class="en">A 300 × 300 × 300 mm CoreXY printer, sourced in Egypt. What's different from the Cairo30, where every part comes from, and how it goes together.</span>
+    <span class="ar">طابعة CoreXY مقاس ٣٠٠ × ٣٠٠ × ٣٠٠ مم، كل حاجة فيها متجابة من مصر. الفرق بينها وبين الكايرو٣٠، كل قطعة جاية منين، وإزاي بتتركب.</span>
+  </p>
+</header>
+
+<!-- ============ WHY ============ -->
+<section>
+  <h2><span class="en">The short version</span><span class="ar">الخلاصة</span></h2>
+  <p>
+    <span class="en">You built a Cairo30 — a 300 mm Cartesian bedslinger. This is the same print size but CoreXY: the bed only moves up and down, and a pair of belts drives the head in X and Y together. That buys roughly double the print speed and a much smaller desk footprint, and it costs about the same money.</span>
+    <span class="ar">إنت عملت كايرو٣٠ — كارتيزيان والسرير بيروح ويجي. دي نفس مقاس الطباعة بس CoreXY: السرير بيتحرك فوق وتحت بس، والرأس بتتحرك في X و Y بسيرين مع بعض. الفرق إنها بتطبع تقريباً ضعف السرعة وبتاخد مساحة أقل بكتير على الترابيزة، وبنفس الفلوس تقريباً.</span>
+  </p>
+</section>
+
+<!-- ============ DIFFERENCE ============ -->
+<section>
+  <h2><span class="en">Cairo30 vs HyperCube 300</span><span class="ar">الكايرو٣٠ مقابل الهايبر كيوب ٣٠٠</span></h2>
+
+  <details open>
+    <summary><span class="en">Design differences</span><span class="ar">الفرق في التصميم</span></summary>
+    <div class="body tw">
+      <table>
+        <thead><tr>
+          <th><span class="en">Item</span><span class="ar">البند</span></th>
+          <th><span class="en">Cairo30</span><span class="ar">كايرو٣٠</span></th>
+          <th><span class="en">HyperCube 300</span><span class="ar">هايبر كيوب ٣٠٠</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><span class="en">Kinematics</span><span class="ar">نظام الحركة</span></td><td><span class="en">Cartesian bedslinger</span><span class="ar">كارتيزيان، السرير بيتحرك</span></td><td><span class="en">CoreXY, fixed bed in X/Y</span><span class="ar">CoreXY، السرير ثابت في X و Y</span></td></tr>
+          <tr><td><span class="en">Motors</span><span class="ar">الموتورات</span></td><td class="n">5</td><td class="n">4</td></tr>
+          <tr><td><span class="en">Motion parts</span><span class="ar">قطع الحركة</span></td><td><span class="en">23 V-wheels</span><span class="ar">٢٣ عجلة V-wheel</span></td><td><span class="en">8 &amp; 10 mm rods, LM8UU, bushings</span><span class="ar">أعمدة ٨ و ١٠ مم، LM8UU، وبوش</span></td></tr>
+          <tr><td><span class="en">Extrusion</span><span class="ar">الألومنيوم</span></td><td><span class="en">2040 + 2020</span><span class="ar">٢٠٤٠ + ٢٠٢٠</span></td><td><span class="en">2020 only</span><span class="ar">٢٠٢٠ بس</span></td></tr>
+          <tr><td><span class="en">Laser cutting</span><span class="ar">قص ليزر</span></td><td><span class="en">12 acrylic parts, ~2,000 EGP</span><span class="ar">١٢ قطعة أكريليك، حوالي ٢٠٠٠ جنيه</span></td><td><span class="en">None</span><span class="ar">ولا قطعة</span></td></tr>
+          <tr><td><span class="en">Board</span><span class="ar">البورد</span></td><td><span class="en">5 drivers needed</span><span class="ar">محتاجة ٥ درايفرات</span></td><td><span class="en">SKR Mini E3 V3.0, 4 onboard TMC2209</span><span class="ar">SKR Mini E3 V3.0، ٤ درايفرات TMC2209 مدمجة</span></td></tr>
+          <tr><td><span class="en">Documentation</span><span class="ar">الشروحات</span></td><td><span class="en">Guide stops after the frame</span><span class="ar">الشرح بيقف بعد الفريم</span></td><td><span class="en">Full Tech2C video series + online calculator</span><span class="ar">سلسلة فيديوهات كاملة من Tech2C + كالكوليتر أونلاين</span></td></tr>
+          <tr><td><span class="en">Parts list age</span><span class="ar">قِدَم قائمة القطع</span></td><td><span class="en">Feb 2023 — prices 1.6–2× stale</span><span class="ar">فبراير ٢٠٢٣ — الأسعار قديمة بـ ١.٦ لـ ٢ ضعف</span></td><td><span class="en">Priced Sept 2026</span><span class="ar">متسعّرة سبتمبر ٢٠٢٦</span></td></tr>
+          <tr><td><span class="en">Cost, 2026 prices</span><span class="ar">التكلفة بأسعار ٢٠٢٦</span></td><td class="n">~21,000–22,500</td><td class="n">~21,800</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px;font-size:14.5px;color:var(--mut)">
+        <span class="en">The headline: same money, but no laser cutting, one motor fewer, one extrusion profile instead of two, and a build series you can actually follow to the end.</span>
+        <span class="ar">الزبدة: نفس الفلوس، بس من غير قص ليزر، وموتور أقل، ومقاس ألومنيوم واحد بدل اتنين، وشرح فيديو تقدر تمشي وراه لحد الآخر.</span>
+      </p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="en">Footprint and speed</span><span class="ar">المساحة والسرعة</span></summary>
+    <div class="body">
+      <div class="tw"><table>
+        <thead><tr>
+          <th><span class="en">Item</span><span class="ar">البند</span></th>
+          <th><span class="en">Cairo30</span><span class="ar">كايرو٣٠</span></th>
+          <th><span class="en">HyperCube 300</span><span class="ar">هايبر كيوب ٣٠٠</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><span class="en">Desk footprint (approx.)</span><span class="ar">المساحة على الترابيزة (تقريبي)</span></td><td><span class="en">~700 × 600 mm</span><span class="ar">~٧٠٠ × ٦٠٠ مم</span></td><td><span class="en">~440 × 445 mm</span><span class="ar">~٤٤٠ × ٤٤٥ مم</span></td></tr>
+          <tr><td><span class="en">Height (approx.)</span><span class="ar">الارتفاع (تقريبي)</span></td><td><span class="en">~600 mm</span><span class="ar">~٦٠٠ مم</span></td><td><span class="en">~535 mm</span><span class="ar">~٥٣٥ مم</span></td></tr>
+          <tr><td><span class="en">Typical print speed</span><span class="ar">سرعة الطباعة المعتادة</span></td><td><span class="en">50–80 mm/s</span><span class="ar">٥٠–٨٠ مم/ث</span></td><td><span class="en">150–200 mm/s</span><span class="ar">١٥٠–٢٠٠ مم/ث</span></td></tr>
+          <tr><td><span class="en">Same large part</span><span class="ar">نفس القطعة الكبيرة</span></td><td><span class="en">~15 hours</span><span class="ar">~١٥ ساعة</span></td><td><span class="en">~8 hours</span><span class="ar">~٨ ساعات</span></td></tr>
+        </tbody>
+      </table></div>
+      <p style="margin-top:12px">
+        <span class="en">Why the footprint gap: a bedslinger has to sweep the whole bed backwards and forwards, so it needs roughly twice the bed depth in free space. CoreXY keeps the bed still, so the machine is barely bigger than its own frame.</span>
+        <span class="ar">ليه المساحة مختلفة كده: البِدسلينجر لازم السرير يروح ويجي بالكامل، يعني محتاج تقريباً ضعف عمق السرير مساحة فاضية. الـ CoreXY السرير فيها ثابت، فالماكينة مش أكبر من الفريم بتاعها إلا بشوية.</span>
+      </p>
+      <p>
+        <span class="en">Fair caveat on speed: the 2× applies to travel and acceleration. On big solid parts both machines hit the hotend's ~11 mm³/s flow limit, so the gap narrows there.</span>
+        <span class="ar">بس بالأمانة في السرعة: الضعف ده في الحركة والتسارع. في القطع الصلبة الكبيرة الاتنين بيوصلوا لحد الـ hotend حوالي ١١ مم³/ث، فالفرق بيقل هناك.</span>
+      </p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="en">Supply differences</span><span class="ar">الفرق في المشتريات</span></summary>
+    <div class="body">
+      <h3><span class="en">Things the Cairo30 needs that this does not</span><span class="ar">حاجات الكايرو٣٠ محتاجاها ودي مش محتاجاها</span></h3>
+      <ul>
+        <li><span class="en">12 laser-cut 6 mm acrylic parts — no laser shop trip at all here.</span><span class="ar">١٢ قطعة أكريليك ٦ مم مقصوصة ليزر — هنا مش هتروح محل ليزر خالص.</span></li>
+        <li><span class="en">23 V-wheels, eccentric spacers and their hardware.</span><span class="ar">٢٣ عجلة V-wheel والإكسنتريك والمسامير بتاعتهم.</span></li>
+        <li><span class="en">2040 extrusion — this is 2020 throughout, one profile to buy and cut.</span><span class="ar">ألومنيوم ٢٠٤٠ — دي ٢٠٢٠ كلها، مقاس واحد تشتريه وتقصه.</span></li>
+        <li><span class="en">A fifth stepper motor.</span><span class="ar">موتور ستيبر خامس.</span></li>
+      </ul>
+      <h3><span class="en">Things this needs that the Cairo30 does not</span><span class="ar">حاجات دي محتاجاها والكايرو٣٠ لأ</span></h3>
+      <ul>
+        <li><span class="en">Smooth rod instead of wheels: 2 × 10 mm for X, 4 × 8 mm for Y and Z, chrome-plated (hardened).</span><span class="ar">أعمدة ملسا بدل العجل: ٢ × ١٠ مم لمحور X، و ٤ × ٨ مم لـ Y و Z، كروم (مقساة).</span></li>
+        <li><span class="en">LM8UU bearings ×6 and four 10 × 12 × 14 mm oil-free bushings for the X carriage.</span><span class="ar">٦ رولمان LM8UU و ٤ بوش ١٠ × ١٢ × ١٤ مم سيلف لوبريكيتنج لعربة X.</span></li>
+        <li><span class="en">F623ZZ ×20 and F608ZZ ×10 flanged bearings for the belt idlers.</span><span class="ar">٢٠ رولمان F623ZZ و ١٠ F608ZZ بفلانشة لبكرات السير.</span></li>
+        <li><span class="en">Two continuous belt runs of ~1,720 mm each — see the open item below.</span><span class="ar">سيرين متواصلين طول كل واحد ~١٧٢٠ مم — بص على البند المفتوح تحت.</span></li>
+        <li><span class="en">~700 g of PETG for the printed parts, which you can print on the Cairo30.</span><span class="ar">~٧٠٠ جم PETG للقطع المطبوعة، وتقدر تطبعها على الكايرو٣٠.</span></li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- ============ SPEC ============ -->
+<section>
+  <h2><span class="en">Machine spec</span><span class="ar">مواصفات الماكينة</span></h2>
+  <details>
+    <summary><span class="en">Full specification</span><span class="ar">المواصفات كاملة</span></summary>
+    <div class="body tw">
+      <table>
+        <tbody>
+          <tr><td><span class="en">Build volume</span><span class="ar">حجم الطباعة</span></td><td>300 × 300 × 300 mm</td></tr>
+          <tr><td><span class="en">Frame</span><span class="ar">الفريم</span></td><td><span class="en">2020 V-slot, 8 × 1 m sticks</span><span class="ar">٢٠٢٠ V-slot، ٨ مواسير ١ متر</span></td></tr>
+          <tr><td><span class="en">X axis</span><span class="ar">محور X</span></td><td><span class="en">2 × 10 mm rod, 460 mm, oil-free bushings</span><span class="ar">٢ عمود ١٠ مم، ٤٦٠ مم، بوش سيلف لوبريكيتنج</span></td></tr>
+          <tr><td><span class="en">Y axis</span><span class="ar">محور Y</span></td><td><span class="en">2 × 8 mm rod, 400 mm, LM8UU</span><span class="ar">٢ عمود ٨ مم، ٤٠٠ مم، LM8UU</span></td></tr>
+          <tr><td><span class="en">Z axis</span><span class="ar">محور Z</span></td><td><span class="en">2 × 8 mm rod, 495 mm + single TR8x8 lead screw</span><span class="ar">٢ عمود ٨ مم، ٤٩٥ مم + عمود قلاووظ TR8x8 واحد</span></td></tr>
+          <tr><td><span class="en">Motors</span><span class="ar">الموتورات</span></td><td>4 × NEMA17 17HS8401S, 48 mm, 1.5 A</td></tr>
+          <tr><td><span class="en">Board</span><span class="ar">البورد</span></td><td>BTT SKR Mini E3 V3.0 — 4 × TMC2209</td></tr>
+          <tr><td><span class="en">Voltage</span><span class="ar">الفولت</span></td><td><span class="en">24 V everywhere</span><span class="ar">٢٤ فولت في كل حاجة</span></td></tr>
+          <tr><td><span class="en">PSU</span><span class="ar">الباور</span></td><td>600 W 24 V / 25 A</td></tr>
+          <tr><td><span class="en">Bed</span><span class="ar">السرير</span></td><td><span class="en">CR10 aluminium 310 × 310, 24 V, 220 W, through a 25 A MOSFET module</span><span class="ar">CR10 ألومنيوم ٣١٠ × ٣١٠، ٢٤ فولت، ٢٢٠ وات، عن طريق موديول MOSFET ٢٥ أمبير</span></td></tr>
+          <tr><td><span class="en">Surface</span><span class="ar">سطح الطباعة</span></td><td><span class="en">PEI / PEO spring steel + magnetic base</span><span class="ar">PEI / PEO صاج زنبرك + قاعدة مغناطيس</span></td></tr>
+          <tr><td><span class="en">Hotend</span><span class="ar">الهوت إند</span></td><td><span class="en">E3D V6 J-head, 24 V, Bowden</span><span class="ar">E3D V6 J-head، ٢٤ فولت، بودن</span></td></tr>
+          <tr><td><span class="en">Extruder</span><span class="ar">الإكسترودر</span></td><td><span class="en">CR10S PRO dual gear, remote</span><span class="ar">CR10S PRO دبل جير، بعيد عن الرأس</span></td></tr>
+          <tr><td><span class="en">Firmware</span><span class="ar">الفيرموير</span></td><td>Marlin</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="en">Cut list</span><span class="ar">مقاسات القص</span></summary>
+    <div class="body">
+      <p style="font-size:14.5px;color:var(--mut)">
+        <span class="en">Generated by the official calculator at</span>
+        <span class="ar">مطلعة من الكالكوليتر الرسمي على</span>
+        <a href="https://superjamie.github.io/hypercube/">superjamie.github.io/hypercube</a>.
+      </p>
+      <div class="tw"><table>
+        <thead><tr>
+          <th><span class="en">Piece</span><span class="ar">القطعة</span></th>
+          <th class="n"><span class="en">Qty</span><span class="ar">العدد</span></th>
+          <th class="n"><span class="en">Length</span><span class="ar">الطول</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td>2020 — X</td><td class="n">4</td><td class="n">440 mm</td></tr>
+          <tr><td>2020 — Y</td><td class="n">4</td><td class="n">403 mm</td></tr>
+          <tr><td>2020 — Z</td><td class="n">4</td><td class="n">495 mm</td></tr>
+          <tr><td><span class="en">2020 — bed Y</span><span class="ar">٢٠٢٠ — سرير Y</span></td><td class="n">2</td><td class="n">385 mm</td></tr>
+          <tr><td><span class="en">2020 — bed X</span><span class="ar">٢٠٢٠ — سرير X</span></td><td class="n">1</td><td class="n">235 mm</td></tr>
+          <tr><td><span class="en">10 mm rod — X</span><span class="ar">عمود ١٠ مم — X</span></td><td class="n">2</td><td class="n">460 mm</td></tr>
+          <tr><td><span class="en">8 mm rod — Y</span><span class="ar">عمود ٨ مم — Y</span></td><td class="n">2</td><td class="n">400 mm</td></tr>
+          <tr><td><span class="en">8 mm rod — Z</span><span class="ar">عمود ٨ مم — Z</span></td><td class="n">2</td><td class="n">495 mm</td></tr>
+          <tr><td><span class="en">TR8x8 lead screw</span><span class="ar">عمود قلاووظ TR8x8</span></td><td class="n">1</td><td class="n">400 mm</td></tr>
+          <tr><td><span class="en">GT2 belt, two runs</span><span class="ar">سير GT2، سيرين</span></td><td class="n">2</td><td class="n">~1,720 mm</td></tr>
+        </tbody>
+      </table></div>
+      <p style="margin-top:12px;font-size:14.5px;color:var(--mut)">
+        <span class="en">2020 total 6,357 mm → 8 sticks of 1 m. No three pieces fit one metre (385 + 385 + 235 = 1,005 mm, over by 5), so eight it is.</span>
+        <span class="ar">إجمالي الـ ٢٠٢٠ = ٦٣٥٧ مم → ٨ مواسير متر. مفيش ٣ قطع بيدخلوا في متر واحد (٣٨٥ + ٣٨٥ + ٢٣٥ = ١٠٠٥ مم، زيادة ٥ مم)، فبقت ٨.</span>
+      </p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ BOM ============ -->
+<section>
+  <h2><span class="en">Where every part comes from</span><span class="ar">كل قطعة جاية منين</span></h2>
+  <p style="font-size:14.5px;color:var(--mut)">
+    <span class="en">Prices in EGP, September 2026, before shipping. Every item links to its product page.</span>
+    <span class="ar">الأسعار بالجنيه، سبتمبر ٢٠٢٦، من غير الشحن. كل صنف عليه لينك لصفحته.</span>
+  </p>
+
+  <details>
+    <summary>
+      <span><span class="en">Ampere Electronics — 36 lines</span><span class="ar">أمبير إلكترونكس — ٣٦ صنف</span></span>
+      <span class="tot">19,879.50</span>
+    </summary>
+    <div class="body tw">
+      <table>
+        <thead><tr>
+          <th><span class="en">Item</span><span class="ar">الصنف</span></th><th>SKU</th>
+          <th class="n"><span class="en">Unit</span><span class="ar">السعر</span></th>
+          <th class="n"><span class="en">Qty</span><span class="ar">العدد</span></th>
+          <th class="n"><span class="en">Line</span><span class="ar">الإجمالي</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><a href="https://ampere-electronics.com/?s=26464&post_type=product">BTT SKR Mini E3 V3.0</a></td><td class="sku">26464</td><td class="n">2,999.00</td><td class="n">1</td><td class="n">2,999.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=26463&post_type=product">BTT TFT35-E3 V3.0 <span class="en">display</span><span class="ar">شاشة</span></a></td><td class="sku">26463</td><td class="n">2,650.00</td><td class="n">1</td><td class="n">2,650.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=24162&post_type=product"><span class="en">2020 V-slot extrusion, 1 m</span><span class="ar">ألومنيوم ٢٠٢٠ V-slot، ١ متر</span></a></td><td class="sku">24162</td><td class="n">275.00</td><td class="n">8</td><td class="n">2,200.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=22942&post_type=product">NEMA17 17HS8401S 48 mm</a></td><td class="sku">22942</td><td class="n">500.00</td><td class="n">4</td><td class="n">2,000.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=16166&post_type=product"><span class="en">CR10 heated bed 310×310, 24 V 220 W</span><span class="ar">سرير ساخن CR10 ٣١٠×٣١٠، ٢٤ فولت ٢٢٠ وات</span></a></td><td class="sku">16166</td><td class="n">1,600.00</td><td class="n">1</td><td class="n">1,600.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=6755&post_type=product"><span class="en">PEI + PEO sheet 310×310 + magnetic base</span><span class="ar">شيت PEI + PEO ٣١٠×٣١٠ + قاعدة مغناطيس</span></a></td><td class="sku">6755</td><td class="n">1,400.00</td><td class="n">1</td><td class="n">1,400.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=6811&post_type=product"><span class="en">PSU 600 W 24 V / 25 A</span><span class="ar">باور ٦٠٠ وات ٢٤ فولت / ٢٥ أمبير</span></a></td><td class="sku">6811</td><td class="n">1,350.00</td><td class="n">1</td><td class="n">1,350.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=24048&post_type=product"><span class="en">M5 spring T-nut for 2020</span><span class="ar">صامولة T بسوستة M5 لـ ٢٠٢٠</span></a></td><td class="sku">24048</td><td class="n">5.00</td><td class="n">200</td><td class="n">1,000.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=7021&post_type=product"><span class="en">Patron PETG black 1 kg</span><span class="ar">فيلامنت PETG أسود ١ كجم</span></a></td><td class="sku">7021</td><td class="n">650.00</td><td class="n">1</td><td class="n">650.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=22926&post_type=product"><span class="en">8 × 1000 mm chrome rod</span><span class="ar">عمود كروم ٨ × ١٠٠٠ مم</span></a></td><td class="sku">22926</td><td class="n">275.00</td><td class="n">2</td><td class="n">550.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=24641&post_type=product">F623ZZ 3×10×4</a></td><td class="sku">24641</td><td class="n">25.00</td><td class="n">20</td><td class="n">500.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=23094&post_type=product"><span class="en">2020 corner bracket</span><span class="ar">زاوية ٢٠٢٠</span></a></td><td class="sku">23094</td><td class="n">13.00</td><td class="n">30</td><td class="n">390.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=22927&post_type=product"><span class="en">10 × 1000 mm chrome rod</span><span class="ar">عمود كروم ١٠ × ١٠٠٠ مم</span></a></td><td class="sku">22927</td><td class="n">375.00</td><td class="n">1</td><td class="n">375.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=22764&post_type=product">E3D V6 J-head <span class="en">hotend</span><span class="ar">هوت إند</span></a></td><td class="sku">22764</td><td class="n">299.00</td><td class="n">1</td><td class="n">299.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=24134&post_type=product">F608ZZ 8×25×7</a></td><td class="sku">24134</td><td class="n">25.00</td><td class="n">10</td><td class="n">250.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=22906&post_type=product">LM08UU</a></td><td class="sku">22906</td><td class="n">28.00</td><td class="n">6</td><td class="n">168.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=26336&post_type=product"><span class="en">Heat-bed MOSFET module 25 A</span><span class="ar">موديول MOSFET للسرير ٢٥ أمبير</span></a></td><td class="sku">26336</td><td class="n">160.00</td><td class="n">1</td><td class="n">160.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=15677&post_type=product"><span class="en">5×8 mm flexible coupler D20L25</span><span class="ar">كوبلينج مرن ٥×٨ مم D20L25</span></a></td><td class="sku">15677</td><td class="n">120.00</td><td class="n">1</td><td class="n">120.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=25769&post_type=product"><span class="en">15 AWG (2 mm²) wire, 1 m</span><span class="ar">سلك ١٥ AWG (٢ مم²)، ١ متر</span></a></td><td class="sku">25769</td><td class="n">30.00</td><td class="n">4</td><td class="n">120.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=24558&post_type=product"><span class="en">22 AWG wire, 1 m</span><span class="ar">سلك ٢٢ AWG، ١ متر</span></a></td><td class="sku">24558</td><td class="n">10.00</td><td class="n">10</td><td class="n">100.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=23070&post_type=product"><span class="en">20T GT2 pulley, 5 mm bore</span><span class="ar">بكرة GT2 ٢٠ سنة، خرم ٥ مم</span></a></td><td class="sku">23070</td><td class="n">35.00</td><td class="n">2</td><td class="n">70.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=22953&post_type=product"><span class="en">NEMA17 motor cable, 1 m</span><span class="ar">كابل موتور NEMA17، ١ متر</span></a></td><td class="sku">22953</td><td class="n">17.00</td><td class="n">4</td><td class="n">68.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=23062&post_type=product"><span class="en">Bed levelling kit, M3</span><span class="ar">طقم ضبط السرير M3</span></a></td><td class="sku">23062</td><td class="n">12.50</td><td class="n">5</td><td class="n">62.50</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=25440&post_type=product"><span class="en">10 mm braided sleeve, 1 m</span><span class="ar">شبكة تغليف كابلات ١٠ مم، ١ متر</span></a></td><td class="sku">25440</td><td class="n">14.00</td><td class="n">3</td><td class="n">42.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=25772&post_type=product"><span class="en">15 mm braided sleeve, 1 m</span><span class="ar">شبكة تغليف كابلات ١٥ مم، ١ متر</span></a></td><td class="sku">25772</td><td class="n">20.00</td><td class="n">2</td><td class="n">40.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=7076&post_type=product"><span class="en">JST XH2.54 crimp terminals ×100</span><span class="ar">أطراف كريمب JST XH2.54 ×١٠٠</span></a></td><td class="sku">7076</td><td class="n">35.00</td><td class="n">1</td><td class="n">35.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=24806&post_type=product"><span class="en">J-head push-fit fitting 1.75/6</span><span class="ar">فيتنج بودن ١.٧٥/٦</span></a></td><td class="sku">24806</td><td class="n">12.50</td><td class="n">2</td><td class="n">25.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=24433&post_type=product"><span class="en">Heater cartridge 24 V 40 W</span><span class="ar">سخان كارتريدج ٢٤ فولت ٤٠ وات</span></a></td><td class="sku">24433</td><td class="n">45.00</td><td class="n">1</td><td class="n">45.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=25391&post_type=product"><span class="en">CR10S PRO dual-gear extruder</span><span class="ar">إكسترودر CR10S PRO دبل جير</span></a></td><td class="sku">25391</td><td class="n">450.00</td><td class="n">1</td><td class="n">450.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=24434&post_type=product"><span class="en">100K NTC thermistor + cable</span><span class="ar">ثيرمستور 100K NTC + كابل</span></a></td><td class="sku">24434</td><td class="n">30.00</td><td class="n">1</td><td class="n">30.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=24236&post_type=product"><span class="en">4010 fan, 24 V</span><span class="ar">مروحة ٤٠١٠، ٢٤ فولت</span></a></td><td class="sku">24236</td><td class="n">50.00</td><td class="n">1</td><td class="n">50.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=26309&post_type=product"><span class="en">3010 fan, 24 V</span><span class="ar">مروحة ٣٠١٠، ٢٤ فولت</span></a></td><td class="sku">26309</td><td class="n">50.00</td><td class="n">1</td><td class="n">50.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=23619&post_type=product"><span class="en">J-head fitting 1.75/10 (spare)</span><span class="ar">فيتنج بودن ١.٧٥/١٠ (احتياطي)</span></a></td><td class="sku">23619</td><td class="n">12.50</td><td class="n">1</td><td class="n">12.50</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=5999&post_type=product"><span class="en">2-pin XH2.54 housing</span><span class="ar">هاوزينج XH2.54 ٢ بن</span></a></td><td class="sku">5999</td><td class="n">1.00</td><td class="n">10</td><td class="n">10.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=6000&post_type=product"><span class="en">3-pin XH2.54 housing</span><span class="ar">هاوزينج XH2.54 ٣ بن</span></a></td><td class="sku">6000</td><td class="n">1.00</td><td class="n">5</td><td class="n">5.00</td></tr>
+          <tr><td><a href="https://ampere-electronics.com/?s=6003&post_type=product"><span class="en">6-pin XH2.54 housing</span><span class="ar">هاوزينج XH2.54 ٦ بن</span></a></td><td class="sku">6003</td><td class="n">1.75</td><td class="n">2</td><td class="n">3.50</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4"><span class="en">Ampere subtotal</span><span class="ar">إجمالي أمبير</span></td><td class="n">19,879.50</td></tr></tfoot>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span><span class="en">Flux Electronix — 5 lines</span><span class="ar">فلَكس إلكترونكس — ٥ أصناف</span></span>
+      <span class="tot">885.00</span>
+    </summary>
+    <div class="body tw">
+      <table>
+        <thead><tr>
+          <th><span class="en">Item</span><span class="ar">الصنف</span></th><th>SKU</th>
+          <th class="n"><span class="en">Unit</span><span class="ar">السعر</span></th>
+          <th class="n"><span class="en">Qty</span><span class="ar">العدد</span></th>
+          <th class="n"><span class="en">Line</span><span class="ar">الإجمالي</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><a href="https://fluxelectronix.com/?s=26862&post_type=product"><span class="en">GT2 open belt 6 mm, Gates, 1 m</span><span class="ar">سير GT2 مفتوح ٦ مم، Gates، ١ متر</span></a></td><td class="sku">26862</td><td class="n">150.00</td><td class="n">4</td><td class="n">600.00</td></tr>
+          <tr><td><a href="https://fluxelectronix.com/?s=22896&post_type=product"><span class="en">TR8x8 lead screw, 400 mm</span><span class="ar">عمود قلاووظ TR8x8، ٤٠٠ مم</span></a></td><td class="sku">22896</td><td class="n">120.00</td><td class="n">1</td><td class="n">120.00</td></tr>
+          <tr><td><a href="https://fluxelectronix.com/?s=B03D13&post_type=product"><span class="en">Mechanical endstop switch</span><span class="ar">إند ستوب ميكانيكي</span></a></td><td class="sku">B03D13</td><td class="n">25.00</td><td class="n">3</td><td class="n">75.00</td></tr>
+          <tr><td><a href="https://fluxelectronix.com/?s=26893&post_type=product"><span class="en">PTFE tube 2 × 4 mm, 1 m</span><span class="ar">خرطوم تفلون ٢ × ٤ مم، ١ متر</span></a></td><td class="sku">26893</td><td class="n">50.00</td><td class="n">1</td><td class="n">50.00</td></tr>
+          <tr><td><a href="https://fluxelectronix.com/?s=B02D71&post_type=product"><span class="en">TR8x8 nut block</span><span class="ar">صامولة TR8x8</span></a></td><td class="sku">B02D71</td><td class="n">40.00</td><td class="n">1</td><td class="n">40.00</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4"><span class="en">Flux subtotal</span><span class="ar">إجمالي فلَكس</span></td><td class="n">885.00</td></tr></tfoot>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span><span class="en">UGE Electronics — 1 line</span><span class="ar">UGE إلكترونكس — صنف واحد</span></span>
+      <span class="tot">1,040.00</span>
+    </summary>
+    <div class="body tw">
+      <table>
+        <thead><tr>
+          <th><span class="en">Item</span><span class="ar">الصنف</span></th>
+          <th class="n"><span class="en">Unit</span><span class="ar">السعر</span></th>
+          <th class="n"><span class="en">Qty</span><span class="ar">العدد</span></th>
+          <th class="n"><span class="en">Line</span><span class="ar">الإجمالي</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><a href="https://uge-one.com/product/10x12x14-high-strength-brass-oil-free-bushing-graphite-copper-sleeve-self-lubricating-mpbz10-12/"><span class="en">MPBZ10-12 oil-free bushing 10×12×14</span><span class="ar">بوش سيلف لوبريكيتنج MPBZ10-12 ١٠×١٢×١٤</span></a></td><td class="n">260.00</td><td class="n">4</td><td class="n">1,040.00</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="3"><span class="en">UGE subtotal</span><span class="ar">إجمالي UGE</span></td><td class="n">1,040.00</td></tr></tfoot>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="en">Buy in person — not ordered online</span><span class="ar">يتشترى باليد — مش أونلاين</span></summary>
+    <div class="body tw">
+      <table>
+        <thead><tr>
+          <th><span class="en">Item</span><span class="ar">الصنف</span></th>
+          <th><span class="en">Where</span><span class="ar">منين</span></th>
+          <th><span class="en">Why</span><span class="ar">ليه</span></th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="en">M3 and M5 screws, hex nuts, nyloc nuts (~300 pieces)</span><span class="ar">مسامير M3 و M5، صواميل، وصواميل نايلوك (~٣٠٠ قطعة)</span></td>
+            <td><span class="en">El Sabtiya, Ramses</span><span class="ar">السبتية، رمسيس</span></td>
+            <td><span class="en">Sold by the piece with no minimum. Online shops sell packs of 10–50 at much higher prices.</span><span class="ar">بيتباعوا بالقطعة ومن غير حد أدنى. المحلات الأونلاين بتبيع باكتات ١٠ لـ ٥٠ بأسعار أغلى بكتير.</span></td>
+          </tr>
+          <tr>
+            <td><span class="en">Stranded silicone wire, 20–22 AWG, ≥5 m</span><span class="ar">سلك سيليكون مجدول، ٢٠–٢٢ AWG، ٥ متر على الأقل</span></td>
+            <td><span class="en">Local electronics market</span><span class="ar">سوق الإلكترونيات</span></td>
+            <td><span class="en">No Egyptian store stocks it online. Needed for the moving gantry — solid core work-hardens and snaps.</span><span class="ar">مفيش محل مصري بيبيعه أونلاين. لازم للجزء المتحرك — السلك المصمت بيتعب ويقطع.</span></td>
+          </tr>
+          <tr>
+            <td><span class="en">microSD card, 8–32 GB Class 10</span><span class="ar">كارت ميموري microSD، ٨–٣٢ جيجا Class 10</span></td>
+            <td><span class="en">Any phone shop</span><span class="ar">أي محل موبايلات</span></td>
+            <td><span class="en">Out of stock at all seven online stores. The board ships without one.</span><span class="ar">مش متوفر في السبع محلات الأونلاين. البورد بييجي من غيره.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="grand">
+    <div class="g"><div class="k">Ampere</div><div class="v">19,879.50</div></div>
+    <div class="g"><div class="k">Flux</div><div class="v">885.00</div></div>
+    <div class="g"><div class="k">UGE</div><div class="v">1,040.00</div></div>
+    <div class="g"><div class="k"><span class="en">Grand total</span><span class="ar">الإجمالي</span></div><div class="v">21,804.50</div></div>
+  </div>
+  <p style="font-size:14px;color:var(--mut)">
+    <span class="en">EGP, goods only. Shipping: Flux 95 (Bosta) or free pickup, UGE ~188, Ampere shown at checkout. Screws, wire and the memory card are on top of this.</span>
+    <span class="ar">بالجنيه، البضاعة بس. الشحن: فلَكس ٩٥ (بوسطة) أو استلام من المحل ببلاش، UGE حوالي ١٨٨، أمبير بيظهر عند الدفع. المسامير والسلك وكارت الميموري زيادة على ده.</span>
+  </p>
+</section>
+
+<!-- ============ OPEN ============ -->
+<section>
+  <h2><span class="en">Two things still open</span><span class="ar">حاجتين لسه مفتوحين</span></h2>
+
+  <details open>
+    <summary><span class="en">1 — The belt (this is where you come in)</span><span class="ar">١ — السير (ودي الحتة اللي محتاجينك فيها)</span></summary>
+    <div class="body">
+      <p>
+        <span class="en">CoreXY needs two belts, each one continuous piece of about 1,720 mm. Belts cannot be joined. No Egyptian store sells GT2 6 mm open belt in any length over 1 metre — all seven were checked. Four 1-metre pieces cannot build this machine no matter who cuts them.</span>
+        <span class="ar">الـ CoreXY محتاجة سيرين، كل واحد قطعة واحدة متواصلة حوالي ١٧٢٠ مم. والسير مينفعش يتوصّل. مفيش محل في مصر بيبيع سير GT2 ٦ مم مفتوح أطول من متر — اتشيّك على السبعة. أربع قطع بمتر مش هيبنوا الماكينة دي مهما حد قصّهم.</span>
+      </p>
+      <div class="note">
+        <b><span class="en">What we need:</span><span class="ar">اللي محتاجينه:</span></b>
+        <span class="en"> two continuous lengths of at least 1.85 m, cut off a roll.</span>
+        <span class="ar"> قطعتين متواصلين طول كل واحدة ١.٨٥ متر على الأقل، مقصوصين من رول.</span>
+      </div>
+      <h3><span class="en">Routes we know about</span><span class="ar">الطرق اللي عارفينها</span></h3>
+      <ul>
+        <li><span class="en">In person at Flux Electronix, 19 Al Bustan St, Bab Al Louq, Abdeen — ask them to cut 2 × 2 m off the roll. Walkable from the El Sabtiya screw trip. Phone 022-3900-202.</span><span class="ar">تروح بنفسك لفلَكس إلكترونكس، ١٩ شارع البستان، باب اللوق، عابدين — وتقوله يقص ٢ × ٢ متر من الرول. قريبة من السبتية وإنت رايح تجيب المسامير. تليفون ٠٢٢٣٩٠٠٢٠٢.</span></li>
+        <li><span class="en">Amazon.eg: a 5 m continuous belt, 325 + 26 delivery, arrives in about three days. Seller is Flux themselves.</span><span class="ar">أمازون مصر: سير ٥ متر متواصل، ٣٢٥ + ٢٦ شحن، بيوصل في حوالي ٣ أيام. والبايع هو فلَكس نفسه.</span> <a href="https://www.amazon.eg/dp/B00YE9YLHG">B00YE9YLHG</a></li>
+        <li><span class="en">AliExpress, a 5 m roll — cheapest but two to four weeks.</span><span class="ar">علي إكسبريس، رول ٥ متر — الأرخص بس بياخد أسبوعين لأربعة.</span></li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="en">2 — The display</span><span class="ar">٢ — الشاشة</span></summary>
+    <div class="body">
+      <p>
+        <span class="en">The board's EXP1 header is wired for the stock Creality Ender 3 rotary knob screen. Nobody in Egypt stocks it. The only local option is the BTT TFT35-E3 touchscreen at 2,650, which is in the cart above — the second most expensive line in the whole build.</span>
+        <span class="ar">مدخل EXP1 في البورد متظبط على شاشة الـ Ender 3 الأصلية اللي بمفتاح دوّار. مفيش حد في مصر بيبيعها. الحل المحلي الوحيد هو شاشة اللمس BTT TFT35-E3 بـ ٢٦٥٠، وهي اللي في القايمة فوق — تاني أغلى بند في الماكينة كلها.</span>
+      </p>
+      <p>
+        <span class="en">The right part was found on AliExpress: a 12864 HD screen for Ender 3 with the knob and one ribbon cable, 875.62 with free shipping, arriving around 23 September. That saves 1,774.38.</span>
+        <span class="ar">القطعة الصح لقيناها على علي إكسبريس: شاشة 12864 HD للـ Ender 3 بمفتاح دوّار وكابل واحد، بـ ٨٧٥.٦٢ وشحن مجاني، بتوصل حوالي ٢٣ سبتمبر. توفر ١٧٧٤.٣٨.</span>
+        <a href="https://ar.aliexpress.com/item/1005008364536321.html"><span class="en">Listing</span><span class="ar">اللينك</span></a>
+      </p>
+      <div class="note">
+        <b><span class="en">Do not substitute:</span><span class="ar">متستبدلهاش بـ:</span></b>
+        <span class="en"> BTT MINI12864, MKS MINI12864, or the RepRapDiscount / RAMPS "LCD12864 Full Graphic Smart Controller". All three need EXP1 and EXP2; this board only has EXP1.</span>
+        <span class="ar"> لا BTT MINI12864، ولا MKS MINI12864، ولا الـ RepRapDiscount / RAMPS "LCD12864 Full Graphic Smart Controller". التلاتة محتاجين EXP1 و EXP2، والبورد ده فيه EXP1 بس.</span>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ============ BUILD ============ -->
+<section>
+  <h2><span class="en">Build guide</span><span class="ar">خطوات التجميع</span></h2>
+  <p style="font-size:14.5px;color:var(--mut)">
+    <span class="en">Once everything above is in hand. Follow the Tech2C HyperCube video series alongside this.</span>
+    <span class="ar">بعد ما كل اللي فوق يبقى في إيدك. امشي على سلسلة فيديوهات Tech2C للهايبر كيوب مع الخطوات دي.</span>
+  </p>
+
+  <details open>
+    <summary><span class="en">Steps 1–5 — parts, frame and Z</span><span class="ar">خطوة ١–٥ — القطع والفريم و Z</span></summary>
+    <div class="body">
+      <ol class="steps">
+        <li><span class="en"><b>Print the parts.</b> All HyperCube parts in PETG, about 700 g. You can run these on the Cairo30.</span><span class="ar"><b>اطبع القطع.</b> كل قطع الهايبر كيوب PETG، حوالي ٧٠٠ جم. تقدر تطبعها على الكايرو٣٠.</span></li>
+        <li><span class="en"><b>Cut the extrusion</b> to the cut list. IN3D will cut for 5 EGP per cut. Deburr the ends and check every piece with a caliper — a 1 mm error here shows up as a skewed frame.</span><span class="ar"><b>اقص الألومنيوم</b> على المقاسات. IN3D بيقص بـ ٥ جنيه للقصة. نضّف الأطراف وقيس كل قطعة بالكاليبر — غلطة ١ مم هنا بتطلع فريم مايل.</span></li>
+        <li><span class="en"><b>Assemble the cube frame</b> with corner brackets and T-nuts. Square it with a machinist square before you tighten anything fully.</span><span class="ar"><b>ركّب الفريم المكعب</b> بالزوايا وصواميل الـ T. ظبّطه بزاوية قياس قبل ما تزق أي مسمار للآخر.</span></li>
+        <li><span class="en"><b>Fit the Z rods and lead screw.</b> Turn the screw by hand through its full travel before you couple it to the motor — it must run free with no tight spot.</span><span class="ar"><b>ركّب أعمدة Z والعمود القلاووظ.</b> لِف العمود بإيدك على طوله قبل ما توصّله بالموتور — لازم يمشي حر من غير ما يزنق في أي نقطة.</span></li>
+        <li><span class="en"><b>Fit the flexible coupler</b> between the Z motor and the lead screw. Flexible, not rigid — a rigid coupler passes misalignment straight into the Z axis and you get banding.</span><span class="ar"><b>ركّب الكوبلينج المرن</b> بين موتور Z والعمود القلاووظ. مرن مش صلب — الصلب بينقل أي عدم استقامة على محور Z وبتطلع خطوط في الطباعة.</span></li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="en">Steps 6–8 — gantry, belts and bed</span><span class="ar">خطوة ٦–٨ — الجانتري والسيور والسرير</span></summary>
+    <div class="body">
+      <ol class="steps" start="6">
+        <li><span class="en"><b>Build the XY gantry.</b> 8 mm Y rods with LM8UU in the joiners, 10 mm X rods with the oil-free bushings in the carriage, F623ZZ and F608ZZ on the corner idlers.</span><span class="ar"><b>ركّب جانتري XY.</b> أعمدة Y ٨ مم بـ LM8UU في الوصلات، أعمدة X ١٠ مم بالبوش في العربية، و F623ZZ و F608ZZ على بكرات الأركان.</span></li>
+        <li><span class="en"><b>Route both belts.</b> Both ends of each belt terminate at the X carriage. Push the gantry around by hand and check it stays square in every position before power goes anywhere near it.</span><span class="ar"><b>لِف السيرين.</b> طرفين كل سير بيتثبتوا في عربية X. حرّك الجانتري بإيدك وشوف إنه فاضل مظبوط في كل وضع قبل ما تقرّب أي كهربا منه.</span></li>
+        <li><span class="en"><b>Mount the bed.</b> Bed extrusion frame, aluminium plate, then the adhesive magnetic base, then the spring steel sheet. Levelling screws and springs at the four corners.</span><span class="ar"><b>ركّب السرير.</b> فريم السرير، الشريحة الألومنيوم، بعدين القاعدة المغناطيسية اللاصقة، بعدين شيت الصاج. مسامير وسوست الضبط في الأربع أركان.</span></li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="en">Steps 9–10 — wiring and firmware</span><span class="ar">خطوة ٩–١٠ — التوصيلات والفيرموير</span></summary>
+    <div class="body">
+      <ol class="steps" start="9">
+        <li><span class="en"><b>Wire it.</b> PSU to board on 2 mm² wire. Bed goes through the 25 A MOSFET module, not straight into the board — the board's bed channel is only about 10 A and the bed pulls 9.17 A. Motors, endstops, hotend, fans. Stranded silicone on everything that moves, inside braided sleeve.</span><span class="ar"><b>وصّل الكهربا.</b> من الباور للبورد بسلك ٢ مم². السرير بيعدي على موديول الـ MOSFET ٢٥ أمبير مش على البورد على طول — مخرج السرير في البورد حوالي ١٠ أمبير بس والسرير بيسحب ٩.١٧. بعدين الموتورات والإند ستوب والهوت إند والمراوح. سلك سيليكون مجدول في كل حاجة بتتحرك، جوه شبكة تغليف.</span></li>
+        <li><span class="en"><b>Flash Marlin.</b> Set CoreXY kinematics, 300 × 300 × 300 volume, Z steps for an 8 mm lead, TMC2209 over UART, correct thermistor tables, and thermal runaway protection <b>on</b>.</span><span class="ar"><b>حمّل Marlin.</b> اظبط حركة CoreXY، مقاس ٣٠٠ × ٣٠٠ × ٣٠٠، خطوات Z على قلاووظ ٨ مم، TMC2209 على UART، جداول الثيرمستور الصح، وحماية الـ thermal runaway <b>مفتوحة</b>.</span></li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="en">Step 11 — commissioning, in this order</span><span class="ar">خطوة ١١ — التشغيل الأول، بالترتيب ده</span></summary>
+    <div class="body">
+      <ol class="steps" start="1">
+        <li><span class="en">Motor directions — on CoreXY both motors move both axes, so get this right before anything else.</span><span class="ar">اتجاه الموتورات — في CoreXY الموتورين بيحركوا المحورين، فظبط ده قبل أي حاجة.</span></li>
+        <li><span class="en">Endstops — confirm each one triggers before the axis hits anything.</span><span class="ar">الإند ستوب — اتأكد إن كل واحد بيضرب قبل ما المحور يخبط في حاجة.</span></li>
+        <li><span class="en"><b>Thermal runaway test</b> — pull the thermistor out mid-heat and confirm the firmware kills the heater. Do not skip this.</span><span class="ar"><b>اختبار thermal runaway</b> — اسحب الثيرمستور والسخان شغال وشوف الفيرموير بيقفل السخان ولا لأ. متعديش الخطوة دي.</span></li>
+        <li><span class="en">PID tune the hotend, then the bed.</span><span class="ar">اعمل PID tune للهوت إند، بعدين للسرير.</span></li>
+        <li><span class="en">Calibrate E-steps on the extruder.</span><span class="ar">عاير الـ E-steps بتاعة الإكسترودر.</span></li>
+        <li><span class="en">First layer and bed levelling. Then a benchmark print.</span><span class="ar">أول طبقة وضبط السرير. وبعدين طبعة اختبار.</span></li>
+      </ol>
+    </div>
+  </details>
+</section>
+
+<!-- ============ SUPPLIERS ============ -->
+<section>
+  <h2><span class="en">Suppliers</span><span class="ar">المحلات</span></h2>
+  <details>
+    <summary><span class="en">Who sells what</span><span class="ar">كل محل بيبيع إيه</span></summary>
+    <div class="body tw">
+      <table>
+        <thead><tr>
+          <th><span class="en">Store</span><span class="ar">المحل</span></th>
+          <th><span class="en">Use for</span><span class="ar">بنجيب منه</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><a href="https://ampere-electronics.com">Ampere Electronics</a></td><td><span class="en">Most of the order — board, PSU, bed, extrusion, motors, rods, bearings, fasteners</span><span class="ar">معظم الطلب — البورد، الباور، السرير، الألومنيوم، الموتورات، الأعمدة، الرولمان</span></td></tr>
+          <tr><td><a href="https://fluxelectronix.com">Flux Electronix</a></td><td><span class="en">Lead screw, belt, endstops, PTFE tube. Shop at Bab Al Louq, 022-3900-202</span><span class="ar">العمود القلاووظ، السير، الإند ستوب، خرطوم التفلون. المحل في باب اللوق، ٠٢٢٣٩٠٠٢٠٢</span></td></tr>
+          <tr><td><a href="https://uge-one.com">UGE Electronics</a></td><td><span class="en">The only source of the 10 × 12 oil-free bushings</span><span class="ar">المصدر الوحيد لبوش الـ ١٠ × ١٢ سيلف لوبريكيتنج</span></td></tr>
+          <tr><td><a href="https://in3d-shop.com">IN3D</a></td><td><span class="en">Extrusion cutting, 5 EGP per cut</span><span class="ar">قص الألومنيوم، ٥ جنيه للقصة</span></td></tr>
+          <tr><td><span class="en">El Sabtiya, Ramses</span><span class="ar">السبتية، رمسيس</span></td><td><span class="en">Screws and nuts by the piece</span><span class="ar">المسامير والصواميل بالقطعة</span></td></tr>
+          <tr><td><a href="https://www.amazon.eg">Amazon.eg</a></td><td><span class="en">Continuous 5 m belt. Flux and Ampere both sell here too — worth checking before deciding a part is unavailable</span><span class="ar">سير ٥ متر متواصل. فلَكس وأمبير بيبيعوا هنا كمان — يستاهل تبص قبل ما تقول إن القطعة مش موجودة</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+</section>
+
+<footer>
+  <span class="en">Prices as listed 5 September 2026, EGP, excluding shipping. Cut list generated from the official HyperCube calculator. Carts are populated at all three stores and nothing has been ordered.</span>
+  <span class="ar">الأسعار زي ما هي يوم ٥ سبتمبر ٢٠٢٦، بالجنيه، من غير الشحن. مقاسات القص مطلعة من الكالكوليتر الرسمي للهايبر كيوب. العربات جاهزة في التلات محلات ولسه محصلش أوردر.</span>
+</footer>
+
+</div>
+
+<script>
+function setLang(l){
+  document.documentElement.lang = l;
+  document.documentElement.dir = (l === 'ar') ? 'rtl' : 'ltr';
+  document.getElementById('bEn').setAttribute('aria-pressed', l === 'en');
+  document.getElementById('bAr').setAttribute('aria-pressed', l === 'ar');
+  try { localStorage.setItem('hc-lang', l); } catch (e) {}
+}
+try { var s = localStorage.getItem('hc-lang'); if (s) setLang(s); } catch (e) {}
+</script>
+</body>
+</html>
